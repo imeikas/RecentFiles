@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Test
+Bundle-SymbolicName: com.meikas.eclipse.recentfiles.test
+Bundle-Version: 0.0.1.qualifier
+Bundle-Vendor: MEIKAS
+Fragment-Host: com.meikas.eclipse.recentfiles.ui;bundle-version="0.0.1"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.junit4

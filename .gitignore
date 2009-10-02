@@ -1,0 +1,6 @@
+.metadata
+bin/
+com.meikas.eclipse.recentfiles.updatesite/*.jar
+com.meikas.eclipse.recentfiles.updatesite/features/
+com.meikas.eclipse.recentfiles.updatesite/plugins/
+External Plug-in Libraries/

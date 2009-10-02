@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Last Opened Files Core Plugin
+Bundle-SymbolicName: com.meikas.eclipse.recentfiles.core
+Bundle-Version: 0.0.1.qualifier
+Bundle-Activator: com.meikas.eclipse.recentfiles.core.Activator
+Bundle-Vendor: MEIKAS
+Require-Bundle: org.eclipse.core.runtime
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
+Export-Package: com.meikas.eclipse.recentfiles.core.store
