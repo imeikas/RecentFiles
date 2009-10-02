@@ -248,7 +248,6 @@ public class RecentFilesView extends ViewPart {
 
 	private void fillContextMenu(IMenuManager manager) {
 		manager.add(toggleAction);
-		manager.add(addAction);
 		manager.add(removeAction);
 		// Other plug-ins can contribute there actions here
 		manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
