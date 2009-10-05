@@ -117,9 +117,9 @@ public class RecentFilesView extends ViewPart {
 	}
 
 	private void restoreBookmarks(String value) {
-		if (value == null)
+		if (value == null || value.length() < 1)
 			return;
-		Activator.logMessage("Deserializing \"" +value+ "\"", null, IStatus.INFO);
+		Activator.logMessage("Deserializing \"" + value + "\"", null, IStatus.INFO);
 		String[] split = value.split(",");
 		for (String string : split) {
 			try {
@@ -432,7 +432,7 @@ public class RecentFilesView extends ViewPart {
 		return buf;
 	}
 
-	private void addFile(IEditorPart activeEditor, boolean b) {
+	private void addFile(IEditorPart activeEditor, boolean bookmark) {
 		IEditorInput ei = activeEditor.getEditorInput();
 
 		if (ei instanceof IURIEditorInput) {
@@ -441,10 +441,10 @@ public class RecentFilesView extends ViewPart {
 			FileLink fileLink = new FileLink(uri);
 			fileLink.setRelative(!uri.isAbsolute());
 			try {
-			if (b)
-				fileLinkStore.addBookmark(fileLink);
-			else
-				fileLinkStore.add(fileLink);
+				if (bookmark)
+					fileLinkStore.addBookmark(fileLink);
+				else
+					fileLinkStore.add(fileLink);
 				viewer.refresh();
 				mainColumn.pack();
 			} catch (SWTException e) {
