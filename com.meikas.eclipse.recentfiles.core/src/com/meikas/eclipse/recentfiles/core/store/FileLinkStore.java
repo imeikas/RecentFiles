@@ -25,18 +25,37 @@ public class FileLinkStore {
 	public void add(FileLink fileLink) {
 		FileLink existingLink = findFirstOccurrance(fileLink);
 		if (existingLink == null) {
-			links.add(bookmarksCount, fileLink);
+			addRegularLink(fileLink);
 		} else {
 			moveUp(existingLink);
 		}
 	}
 
+	private void addRegularLink(FileLink fileLink) {
+		if (bookmarksCount > links.size())
+			cleanUp();
+
+		links.add(bookmarksCount, fileLink);
+	}
+
+	/**
+	 * Something has gone horribly wrong and we need to clean up the mess.
+	 */
+	private void cleanUp() {
+		bookmarksCount = 0;
+		for (FileLink fl : links) {
+			if (fl.isBookmark())
+				bookmarksCount++;
+		}
+
+	}
+
 	private void moveUp(FileLink link) {
 		links.remove(link);
 		if (link.isBookmark())
-			links.add(0,link);
+			links.add(0, link);
 		else
-			links.add(bookmarksCount, link);
+			addRegularLink(link);
 	}
 
 	public void addBookmark(FileLink fileLink) {

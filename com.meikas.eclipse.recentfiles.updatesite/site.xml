@@ -3,7 +3,7 @@
    <description name="RecentFiles updatesite" url="http://meikas.com/recentfiles">
       Main updatesite
    </description>
-   <feature url="features/com.meikas.eclipse.recentfiles_0.0.1.200910021922.jar" id="com.meikas.eclipse.recentfiles" version="0.0.1.200910021922">
+   <feature url="features/com.meikas.eclipse.recentfiles_0.0.1.200910051425.jar" id="com.meikas.eclipse.recentfiles" version="0.0.1.200910051425">
       <category name="com.meikas.eclipse.recentfiles"/>
    </feature>
    <category-def name="com.meikas.eclipse.recentfiles" label="Recent Files Plugin"/>

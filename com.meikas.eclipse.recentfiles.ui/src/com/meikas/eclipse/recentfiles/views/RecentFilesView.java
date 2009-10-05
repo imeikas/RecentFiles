@@ -17,6 +17,7 @@ import java.util.Iterator;
 import org.eclipse.core.filesystem.EFS;
 import org.eclipse.core.filesystem.IFileInfo;
 import org.eclipse.core.filesystem.IFileStore;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;
@@ -31,6 +32,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.SWTException;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Table;
@@ -117,11 +119,12 @@ public class RecentFilesView extends ViewPart {
 	private void restoreBookmarks(String value) {
 		if (value == null)
 			return;
-
+		Activator.logMessage("Deserializing \"" +value+ "\"", null, IStatus.INFO);
 		String[] split = value.split(",");
 		for (String string : split) {
 			try {
-				fileLinkStore.addBookmark(FileLink.getDeserialized(string));
+				FileLink deserialized = FileLink.getDeserialized(string);
+				fileLinkStore.addBookmark(deserialized);
 			} catch (URISyntaxException e) {
 				e.printStackTrace();
 			}
@@ -390,10 +393,11 @@ public class RecentFilesView extends ViewPart {
 			try {
 				IDE.openEditorOnFileStore(page, file);
 			} catch (PartInitException e) {
-				// TODO Put your exception handler here if you wish to
+				Activator.logErrorMessage("openEditor failed", e);
 			}
 		} else {
 			// TODO Do something if the file does not exist
+			Activator.logMessage("File Not found", null, IStatus.WARNING);
 		}
 
 	}
@@ -436,12 +440,16 @@ public class RecentFilesView extends ViewPart {
 			URI uri = urieditor.getURI();
 			FileLink fileLink = new FileLink(uri);
 			fileLink.setRelative(!uri.isAbsolute());
+			try {
 			if (b)
 				fileLinkStore.addBookmark(fileLink);
 			else
 				fileLinkStore.add(fileLink);
-			viewer.refresh();
-			mainColumn.pack();
+				viewer.refresh();
+				mainColumn.pack();
+			} catch (SWTException e) {
+				Activator.logErrorMessage(e.getMessage(), e);
+			}
 		}
 	}
 

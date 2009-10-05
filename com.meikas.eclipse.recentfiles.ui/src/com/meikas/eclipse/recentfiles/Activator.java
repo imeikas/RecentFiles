@@ -10,6 +10,9 @@
  *******************************************************************************/
 package com.meikas.eclipse.recentfiles;
 
+import org.eclipse.core.runtime.ILog;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
@@ -76,5 +79,26 @@ public class Activator extends AbstractUIPlugin {
 	 */
 	public static ImageDescriptor getImageDescriptor(String path) {
 		return imageDescriptorFromPlugin(PLUGIN_ID, path);
+	}
+
+	public static void logErrorMessage(String mess, Exception e) {
+		logMessage(mess, e, IStatus.ERROR);
+	}
+
+	public static void logMessage(String mess, Exception e, int severity) {
+		final Status status = new Status(severity, PLUGIN_ID, 1, mess, e);
+		Activator default1 = getDefault();
+		if (default1 != null) {
+			ILog log = default1.getLog();
+			if (log != null){
+				log.log(status);
+			}else{
+				System.err.println("Couldn't report error!!!");
+				e.printStackTrace(System.err);
+			}
+		}else{
+			System.err.println("Couldn't report error!!!");
+			e.printStackTrace(System.err);
+		}
 	}
 }
